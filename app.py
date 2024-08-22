@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 from transformers import pipeline, AutoProcessor, AutoModelForVisualQuestionAnswering
-import os
 from PIL import Image
 from torchvision import transforms
 from werkzeug.utils import secure_filename
+import os
 
-processor = AutoProcessor.from_pretrained("Salesforce/blip-vqa-base")
-model = AutoModelForVisualQuestionAnswering.from_pretrained(
-    "Salesforce/blip-vqa-base")
+pipe = pipeline("visual-question-answering", model="Salesforce/blip-vqa-capfilt-large", device="cuda", clean_up_tokenization_spaces=True)
+processor = AutoProcessor.from_pretrained("Salesforce/blip-vqa-capfilt-large")
+model = AutoModelForVisualQuestionAnswering.from_pretrained("Salesforce/blip-vqa-capfilt-large")
 
 app = Flask(__name__)
 
@@ -67,7 +67,7 @@ def get_Chat_response(text, file_path=None):
     else:
         return "No image provided for visual question answering."
 
-    outputs = model.generate(**inputs)
+    outputs = model.generate(**inputs, max_new_tokens=200)
     return processor.decode(outputs[0], skip_special_tokens=True)
 
 

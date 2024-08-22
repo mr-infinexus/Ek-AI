@@ -321,7 +321,7 @@ html {
 }
 
 .attach_btn:hover i,
-.send_btn:hover i{
+.send_btn:hover i {
 	color: #007bff;
 	background-color: rgba(0, 0, 0, 0.5) !important;
 }
