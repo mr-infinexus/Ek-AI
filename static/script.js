@@ -44,7 +44,7 @@ $(document).ready(function () {
             }).done(function (data) {
                 const botHtml = `
                     <div class="d-flex justify-content-start mb-4">
-                        <div class="img_cont_msg"><img src="https://cdn4.iconfinder.com/data/icons/mysticism/2023/all-seeing_eye_illuminati-1024.png" class="rounded-circle user_img_msg"></div>
+                        <div class="img_cont_msg"><img src="https://img.freepik.com/premium-photo/eye-world_1132399-2880.jpg" class="rounded-circle user_img_msg"></div>
                         <div class="msg_cotainer">${data}<span class="msg_time">${currentTime}</span></div>
                     </div>
                 `;
