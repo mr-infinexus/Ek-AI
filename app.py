@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, jsonify
-from transformers import pipeline, AutoProcessor, AutoModelForVisualQuestionAnswering
+from flask import Flask, render_template, request
 from PIL import Image
 from torchvision import transforms
+from transformers import pipeline, AutoProcessor, AutoModelForVisualQuestionAnswering
 from werkzeug.utils import secure_filename
 import os
 
-pipe = pipeline("visual-question-answering", model="Salesforce/blip-vqa-capfilt-large", device="cuda", clean_up_tokenization_spaces=True)
+pipe = pipeline("visual-question-answering", model="Salesforce/blip-vqa-capfilt-large", device="cuda")
 processor = AutoProcessor.from_pretrained("Salesforce/blip-vqa-capfilt-large")
 model = AutoModelForVisualQuestionAnswering.from_pretrained("Salesforce/blip-vqa-capfilt-large")
 
@@ -15,7 +15,6 @@ UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -48,7 +47,6 @@ def chat():
     full_response = response_text
     if uploaded_file_info:
         full_response += f" ({uploaded_file_info})"
-
     return full_response
 
 
